@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "522125922842",
+    "project_id": "whatsapp-backend-chat",
+    "storage_bucket": "whatsapp-backend-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522125922842:android:d04af8c3642463520df7a3",
+        "android_client_info": {
+          "package_name": "com.codeconline.whatsapp_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "522125922842-5p8sppojk63r1ba23h57l6g9t7q1hrrh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZifmM_gKsbqMQ7D4x-ZENk7nexhVUKCw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "522125922842-5p8sppojk63r1ba23h57l6g9t7q1hrrh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
