@@ -33,5 +33,7 @@ double getProportionateScreenWidth(double inputWidth) {
 SizedBox heightSpace(double value) => SizedBox(height: getProportionateScreenHeight(value));
 SizedBox widthSpace(double value) => SizedBox(width: getProportionateScreenWidth(value));
 
-SizedBox mediaHeightSpace(context, double value) => SizedBox(height: MediaQuery.of(context).size.height / value);
-SizedBox mediaWidthSpace(context, double value) => SizedBox(width: MediaQuery.of(context).size.width / value);
+SizedBox mediaHeightSpace(BuildContext context, double value) => SizedBox(height: MediaQuery.of(context).size.height / value);
+SizedBox mediaWidthSpace(BuildContext context, double value) => SizedBox(width: MediaQuery.of(context).size.width / value);
+
+Size size(BuildContext context) => MediaQuery.of(context).size;
