@@ -1,19 +1,22 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/colors.dart';
+import 'package:whatsapp_clone/common/utils/utils.dart';
 import 'package:whatsapp_clone/common/widgets/custom_button.dart';
+import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/widgets/size_config.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   static const routeName = "/login-screen";
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final phoneController = TextEditingController();
   Country? _country;
 
@@ -36,6 +39,17 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() => _country = country);
       },
     );
+  }
+
+  /// provider ref -> An object that allows widgets to interact with providers.
+  /// consumer widget -> makes widget interact eith provider
+  void sendPhoneNumber() async {
+    String phone = phoneController.text.trim();
+    if (_country != null && phone.isNotEmpty) {
+      ref.read(authControllerProvider).signInWithPhone(context, "+${_country!.phoneCode}$phone");
+    } else {
+      showSnackBar(context: context, content: "Fill out all the fields");
+    }
   }
 
   @override
@@ -76,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: size(context).height * 0.6),
             SizedBox(
               width: 90,
-              child: CustomButton(text: "NEXT", onPressed: () {}),
+              child: CustomButton(text: "NEXT", onPressed: sendPhoneNumber),
             ),
           ],
         ),
