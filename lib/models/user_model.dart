@@ -1,6 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 class UserModel {
   UserModel({
     required this.phoneNumber,
@@ -19,6 +16,9 @@ class UserModel {
       'phoneNumber': phoneNumber,
       'isOnline': isOnline,
       'groupId': groupId,
+      'name': name,
+      'uid': uid,
+      'profilePic': profilePic,
     };
   }
 
@@ -29,7 +29,7 @@ class UserModel {
       uid: map['uid'] ?? "",
       profilePic: map['profilePic'] ?? "",
       isOnline: map['isOnline'] ?? false,
-      groupId: List<String>.from((map['groupId'] as List<String>)),
+      groupId: List<String>.from((map['groupId'] as List<dynamic>)),
     );
   }
 }
