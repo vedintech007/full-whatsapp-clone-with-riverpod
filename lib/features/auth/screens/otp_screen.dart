@@ -33,11 +33,8 @@ class OTPScreen extends ConsumerWidget {
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   if (value.length == 6) {
-                    print("verifying otp...");
                     verifyOTP(ref, context, value.trim());
                   }
-
-                  print("done verifying otp $value");
                 },
                 decoration: const InputDecoration(
                   hintText: "- - - - - -",

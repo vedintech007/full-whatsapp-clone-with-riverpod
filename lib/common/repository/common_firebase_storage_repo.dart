@@ -20,8 +20,6 @@ class CommonFirebaseStorageRepository {
 
     String downloadUrl = await snap.ref.getDownloadURL();
 
-    print("download url is $downloadUrl");
-
     return downloadUrl;
   }
 }

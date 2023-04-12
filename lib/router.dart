@@ -18,7 +18,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case SelectContactScreen.routeName:
       return _pageRoute(const SelectContactScreen());
     case MobileChatScreen.routeName:
-      return _pageRoute(const MobileChatScreen());
+      final arguments = settings.arguments as Map<String, dynamic>;
+      final name = arguments['name'];
+      final uid = arguments['uid'];
+      return _pageRoute(MobileChatScreen(
+        name: name,
+        uid: uid,
+      ));
 
     default:
       return _pageRoute(const ErrorScreen(error: "This page does not exist"));

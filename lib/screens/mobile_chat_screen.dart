@@ -1,11 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:whatsapp_clone/colors.dart';
-import 'package:whatsapp_clone/info.dart';
 import 'package:whatsapp_clone/widgets/chat_list.dart';
 
 class MobileChatScreen extends StatelessWidget {
   static const String routeName = "/mobile-chat-screen";
-  const MobileChatScreen({Key? key}) : super(key: key);
+
+  const MobileChatScreen({
+    Key? key,
+    required this.name,
+    required this.uid,
+  }) : super(key: key);
+
+  final String name;
+  final String uid;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +22,7 @@ class MobileChatScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: appBarColor,
         title: Text(
-          info[0]['name'].toString(),
+          name,
         ),
         centerTitle: false,
         actions: [

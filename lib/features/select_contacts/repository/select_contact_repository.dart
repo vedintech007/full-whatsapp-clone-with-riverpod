@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone/common/constants/string_validator.dart';
 import 'package:whatsapp_clone/common/utils/utils.dart';
 import 'package:whatsapp_clone/models/user_model.dart';
 import 'package:whatsapp_clone/screens/mobile_chat_screen.dart';
@@ -38,20 +41,30 @@ class SelectContactRepository {
       for (var document in userCollection.docs) {
         var userData = UserModel.fromMap(document.data());
 
-        String selectPhoneNum = selectedContact.phones[0].number.replaceAll(' ', "");
+        String selectPhoneNum = await convertPhoneNumber(selectedContact.phones[0].number);
+
+        print("yeah starts with 0 and now is $selectPhoneNum");
 
         if (selectPhoneNum == userData.phoneNumber) {
           isFound = true;
-          if (context.mounted) Navigator.pushNamed(context, MobileChatScreen.routeName);
+          // if (context.mounted) {
+          Navigator.pushNamed(
+            context,
+            MobileChatScreen.routeName,
+            arguments: {
+              "name": userData.name,
+              "uid": userData.uid,
+            },
+          );
+          // }
         }
+      }
 
-        if (!isFound) {
-          if (context.mounted) showSnackBar(context: context, content: "This number does not exist on this platform");
-        }
-        // print(selectedContact.phones[0].number);
+      if (!isFound) {
+        showSnackBar(context: context, content: "This number is not registered on our platform");
       }
     } catch (e) {
-      //
+      print("Picking contact error is $e");
     }
   }
 }

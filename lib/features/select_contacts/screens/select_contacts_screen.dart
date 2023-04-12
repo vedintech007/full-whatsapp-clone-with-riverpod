@@ -28,7 +28,6 @@ class SelectContactScreen extends ConsumerWidget {
               itemCount: contactList.length,
               itemBuilder: (context, index) {
                 final contact = contactList[index];
-                print(contact.photo);
                 return InkWell(
                   onTap: () => selectContact(ref, contact, context),
                   child: Padding(
