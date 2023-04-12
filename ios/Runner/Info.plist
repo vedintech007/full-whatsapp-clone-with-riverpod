@@ -64,5 +64,7 @@
 	<string>Camera usage required</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Microphone usage required</string>
+	<key>NSContactsUsageDescription</key>
+     <string>Contact list for chat</string>
 </dict>
 </plist>
