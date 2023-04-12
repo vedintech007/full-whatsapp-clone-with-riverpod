@@ -105,7 +105,7 @@ class AuthRepository {
       }
 
       var user = UserModel(
-        phoneNumber: auth.currentUser!.uid,
+        phoneNumber: auth.currentUser!.phoneNumber!,
         groupId: [],
         name: name,
         uid: uid,
