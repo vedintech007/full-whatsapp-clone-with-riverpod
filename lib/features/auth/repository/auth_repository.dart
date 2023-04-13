@@ -126,5 +126,13 @@ class AuthRepository {
     }
   }
 
+  Stream<UserModel> userData(String userId) {
+    return firestore.collection("users").doc(userId).snapshots().map(
+          (DocumentSnapshot<Map<String, dynamic>> snap) => UserModel.fromMap(
+            snap.data()!,
+          ),
+        );
+  }
+
   //
 }
