@@ -17,7 +17,6 @@ class ContactsList extends ConsumerWidget {
       child: StreamBuilder<List<ChatContact>>(
           stream: ref.watch(chatControllerProvider).chatContacts(),
           builder: (context, snapshot) {
-            print(snapshot.connectionState);
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Loader();
             }
@@ -31,15 +30,13 @@ class ContactsList extends ConsumerWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        print(chatContactData.contactId);
-
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => MobileChatScreen(
-                              name: chatContactData.name,
-                              uid: chatContactData.contactId,
-                            ),
-                          ),
+                        Navigator.pushNamed(
+                          context,
+                          MobileChatScreen.routeName,
+                          arguments: {
+                            "name": chatContactData.name,
+                            "uid": chatContactData.contactId,
+                          },
                         );
                       },
                       child: Padding(

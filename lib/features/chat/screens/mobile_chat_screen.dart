@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:whatsapp_clone/colors.dart';
+import 'package:whatsapp_clone/common/widgets/loader.dart';
 import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/features/chat/widgets/bottom_chat_field.dart';
 import 'package:whatsapp_clone/models/user_model.dart';
-import 'package:whatsapp_clone/widgets/chat_list.dart';
+import 'package:whatsapp_clone/features/chat/widgets/chat_list.dart';
 
 class MobileChatScreen extends ConsumerWidget {
   static const String routeName = "/mobile-chat-screen";
@@ -29,7 +30,7 @@ class MobileChatScreen extends ConsumerWidget {
             stream: ref.read(authControllerProvider).userDataById(uid),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Container();
+                return const Loader();
               }
               return Column(
                 children: [
@@ -63,8 +64,10 @@ class MobileChatScreen extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          const Expanded(
-            child: ChatList(),
+          Expanded(
+            child: ChatList(
+              recieverUserId: uid,
+            ),
           ),
           BottomChatField(recieverUserId: uid),
         ],

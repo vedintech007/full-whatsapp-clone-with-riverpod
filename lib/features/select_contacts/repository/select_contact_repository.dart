@@ -43,8 +43,6 @@ class SelectContactRepository {
 
         String selectPhoneNum = await convertPhoneNumber(selectedContact.phones[0].number);
 
-        print("yeah starts with 0 and now is $selectPhoneNum");
-
         if (selectPhoneNum == userData.phoneNumber) {
           isFound = true;
           // if (context.mounted) {
