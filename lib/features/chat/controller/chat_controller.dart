@@ -32,7 +32,11 @@ class ChatController {
     required String text,
     required String recieverUserId,
   }) {
+    print(text);
+    print(recieverUserId);
+
     ref.read(userDataAuthProvider).whenData((authData) {
+      print(authData);
       chatRepository.sendTextMessage(
         context: context,
         text: text,

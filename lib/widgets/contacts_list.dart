@@ -31,11 +31,13 @@ class ContactsList extends ConsumerWidget {
                   children: [
                     InkWell(
                       onTap: () {
+                        print(chatContactData.contactId);
+
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const MobileChatScreen(
-                              name: "ved",
-                              uid: "12345",
+                            builder: (context) => MobileChatScreen(
+                              name: chatContactData.name,
+                              uid: chatContactData.contactId,
                             ),
                           ),
                         );

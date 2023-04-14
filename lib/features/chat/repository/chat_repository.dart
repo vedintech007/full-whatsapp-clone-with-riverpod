@@ -149,6 +149,11 @@ class ChatRepository {
     required UserModel senderUser,
   }) async {
     try {
+      print(text);
+      print(recieverUserId);
+      print(senderUser);
+      print("final message");
+
       var timeSent = DateTime.now();
       UserModel recieverUserData;
 
