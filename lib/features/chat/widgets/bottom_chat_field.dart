@@ -52,6 +52,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
               }
             },
             decoration: InputDecoration(
+              contentPadding: const EdgeInsets.symmetric(vertical: 15),
               filled: true,
               fillColor: mobileChatBoxColor,
               prefixIcon: Padding(
@@ -106,7 +107,6 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                   style: BorderStyle.none,
                 ),
               ),
-              contentPadding: const EdgeInsets.all(10),
             ),
           ),
         ),

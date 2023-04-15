@@ -41,14 +41,16 @@ class _ChatListState extends ConsumerState<ChatList> {
           }
 
           SchedulerBinding.instance.addPostFrameCallback((_) {
-            messageController.jumpTo(messageController.position.maxScrollExtent);
+            if (messageController.hasClients) {
+              messageController.jumpTo(messageController.position.maxScrollExtent);
+            }
           });
           return ListView.builder(
             controller: messageController,
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               final messageData = snapshot.data![index];
-              final timeSent = DateFormat.Hm().format(messageData.timeSent);
+              final timeSent = DateFormat('h:mm a').format(messageData.timeSent);
               if (messageData.senderId == FirebaseAuth.instance.currentUser!.uid) {
                 return MyMessageCard(
                   message: messageData.text,
