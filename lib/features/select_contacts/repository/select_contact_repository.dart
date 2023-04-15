@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
@@ -62,7 +64,7 @@ class SelectContactRepository {
         showSnackBar(context: context, content: "This number is not registered on our platform");
       }
     } catch (e) {
-      print("Picking contact error is $e");
+      log("Picking contact error is $e");
     }
   }
 }

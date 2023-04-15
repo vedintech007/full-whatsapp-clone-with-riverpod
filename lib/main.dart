@@ -34,6 +34,7 @@ class MyApp extends ConsumerWidget {
           appBarTheme: const AppBarTheme(
             color: appBarColor,
             elevation: 0,
+            centerTitle: true,
           ),
         ),
         onGenerateRoute: (setting) => generateRoute(setting),
