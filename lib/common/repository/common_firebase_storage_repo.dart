@@ -10,7 +10,9 @@ final commonFirebaseStorageRepositoryProvider = Provider(
 );
 
 class CommonFirebaseStorageRepository {
-  CommonFirebaseStorageRepository({required this.firebaseStorage});
+  CommonFirebaseStorageRepository({
+    required this.firebaseStorage,
+  });
 
   final FirebaseStorage firebaseStorage;
 
