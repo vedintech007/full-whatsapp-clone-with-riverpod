@@ -35,7 +35,7 @@ class ChatRepository {
         .collection(
           "chats",
         )
-        .orderBy('timeSent')
+        .orderBy("timeSent", descending: true)
         .snapshots()
         .asyncMap(
       (collection) async {
