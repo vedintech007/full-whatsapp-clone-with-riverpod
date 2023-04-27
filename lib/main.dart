@@ -28,7 +28,7 @@ class MyApp extends ConsumerWidget {
     return DismissKeyboard(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Whatsapp UI',
+        title: 'Whatsapp Clone',
         theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: backgroundColor,
           appBarTheme: const AppBarTheme(
