@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:whatsapp_clone/colors.dart';
 import 'package:whatsapp_clone/common/enums/message_enum.dart';
 import 'package:whatsapp_clone/common/utils/functions.dart';
@@ -25,6 +28,30 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   bool isShowSendButton = false;
   bool isShowEmojiContainer = false;
   FocusNode focusNode = FocusNode();
+
+  bool isRecorderInit = false;
+  bool isRecording = false;
+
+  FlutterSoundRecorder? _soundRercoder;
+
+  @override
+  void initState() {
+    super.initState();
+    _soundRercoder = FlutterSoundRecorder();
+
+    openAudio();
+  }
+
+  void openAudio() async {
+    final status = await Permission.microphone.request();
+
+    if (status != PermissionStatus.granted) {
+      throw RecordingPermissionException("Mic permission not allowed");
+    }
+
+    await _soundRercoder!.openRecorder();
+    isRecorderInit = true;
+  }
 
   void hideEmojiContainer() => setState(() => isShowEmojiContainer = false);
 
@@ -52,6 +79,25 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
           );
 
       setState(() => _messageController.text = '');
+    } else {
+      var temDir = await getTemporaryDirectory();
+      var path = "${temDir.path}/flutter_sound.aac";
+
+      if (!isRecorderInit) {
+        return;
+      }
+      if (isRecording) {
+        await _soundRercoder!.stopRecorder();
+        sendFileMessage(File(path), MessageEnum.audio);
+      } else {
+        await _soundRercoder!.startRecorder(
+          toFile: path,
+        );
+      }
+
+      setState(() {
+        isRecording = !isRecording;
+      });
     }
   }
 
@@ -81,6 +127,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   void selectGIF() async {
     final gif = await pickGIF(context);
     if (gif != null) {
+      // ignore: use_build_context_synchronously
       ref.read(chatControllerProvider).sendGIFMessage(
             context: context,
             gifUrl: gif.url,
@@ -187,7 +234,11 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                 child: GestureDetector(
                   onTap: sendTextMessage,
                   child: Icon(
-                    isShowSendButton ? Icons.send : Icons.mic,
+                    isShowSendButton
+                        ? Icons.send
+                        : isRecording
+                            ? Icons.close
+                            : Icons.mic,
                     color: Colors.white,
                   ),
                 ),
@@ -216,6 +267,8 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   @override
   void dispose() {
     _messageController.dispose();
+    _soundRercoder!.closeRecorder();
+    isRecorderInit = false;
     super.dispose();
   }
 }

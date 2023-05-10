@@ -65,6 +65,8 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Microphone usage required</string>
 	<key>NSContactsUsageDescription</key>
-     <string>Contact list for chat</string>
+    <string>Contact list for chat</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>This app require this permission to play sound</string>
 </dict>
 </plist>
