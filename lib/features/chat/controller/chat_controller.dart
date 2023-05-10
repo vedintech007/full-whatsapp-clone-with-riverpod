@@ -67,4 +67,31 @@ class ChatController {
       );
     });
   }
+
+  void sendGIFMessage({
+    required BuildContext context,
+    required String gifUrl,
+    required String recieverUserId,
+  }) {
+    //https://giphy.com/gifs/party-celebrate-birthday-DFexVkRG7gX9oCy68r
+    int gifUrlPartIndex = gifUrl.lastIndexOf('-') + 1;
+    String gifUrlPart = gifUrl.substring(gifUrlPartIndex);
+    String newGifUrl = "https://i.giphy.com/media/$gifUrlPart/200.gif";
+    ref.read(userDataAuthProvider).whenData(
+          (value) => chatRepository.sendGIFMessage(
+            context: context,
+            gifUrl: newGifUrl,
+            recieverUserId: recieverUserId,
+            senderUser: value!,
+          ),
+        );
+    // ref.read(userDataAuthProvider).whenData((authData) {
+    //   chatRepository.sendTextMessage(
+    //     context: context,
+    //     text: text,
+    //     recieverUserId: recieverUserId,
+    //     senderUser: authData!,
+    //   );
+    // });
+  }
 }

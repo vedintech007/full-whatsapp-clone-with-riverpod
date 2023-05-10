@@ -78,6 +78,18 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
     }
   }
 
+  void selectGIF() async {
+    final gif = await pickGIF(context);
+    if (gif != null) {
+      ref.read(chatControllerProvider).sendGIFMessage(
+            context: context,
+            gifUrl: gif.url,
+            recieverUserId: widget.recieverUserId,
+          );
+      // sendGifMessage(gif, MessageEnum.gif);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -122,7 +134,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                             ),
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: selectGIF,
                             icon: const Icon(Icons.gif),
                             color: Colors.grey,
                           ),

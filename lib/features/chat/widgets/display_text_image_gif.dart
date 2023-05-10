@@ -30,6 +30,18 @@ class DisplayTextImageGif extends StatelessWidget {
                 ? VideoPlayerItem(
                     videoUrl: message,
                   )
-                : Container();
+                : type == MessageEnum.gif
+                    ? CachedNetworkImage(
+                        imageUrl: message,
+                      )
+                    : const Center(
+                        child: Text(
+                          "❌❌❌ You can't view this message with your version of the app. Please update.",
+                          style: TextStyle(
+                            // color: Colors.red,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      );
   }
 }
