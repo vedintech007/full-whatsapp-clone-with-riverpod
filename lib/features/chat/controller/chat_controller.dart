@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/common/enums/message_enum.dart';
+import 'package:whatsapp_clone/common/providers/message_reply_provider.dart';
 import 'package:whatsapp_clone/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone/models/chat_contact.dart';
 import 'package:whatsapp_clone/models/message.dart';
@@ -40,12 +41,14 @@ class ChatController {
     required String text,
     required String recieverUserId,
   }) {
+    final messageReply = ref.read(messageReplyProvider);
     ref.read(userDataAuthProvider).whenData((authData) {
       chatRepository.sendTextMessage(
         context: context,
         text: text,
         recieverUserId: recieverUserId,
         senderUser: authData!,
+        messageReply: messageReply,
       );
     });
   }
@@ -56,6 +59,7 @@ class ChatController {
     required String recieverUserId,
     required MessageEnum messageEnum,
   }) {
+    final messageReply = ref.read(messageReplyProvider);
     ref.read(userDataAuthProvider).whenData((authData) {
       chatRepository.sendFileMessage(
         context: context,
@@ -64,6 +68,7 @@ class ChatController {
         senderUserData: authData!,
         messageEnum: messageEnum,
         ref: ref,
+        messageReply: messageReply,
       );
     });
   }
@@ -73,6 +78,7 @@ class ChatController {
     required String gifUrl,
     required String recieverUserId,
   }) {
+    final messageReply = ref.read(messageReplyProvider);
     //https://giphy.com/gifs/party-celebrate-birthday-DFexVkRG7gX9oCy68r
     int gifUrlPartIndex = gifUrl.lastIndexOf('-') + 1;
     String gifUrlPart = gifUrl.substring(gifUrlPartIndex);
@@ -83,6 +89,7 @@ class ChatController {
             gifUrl: newGifUrl,
             recieverUserId: recieverUserId,
             senderUser: value!,
+            messageReply: messageReply,
           ),
         );
     // ref.read(userDataAuthProvider).whenData((authData) {
