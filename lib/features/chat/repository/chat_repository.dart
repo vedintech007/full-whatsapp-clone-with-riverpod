@@ -319,7 +319,7 @@ class ChatRepository {
         recieverUserName: recieverUserData.name,
         messageType: MessageEnum.gif,
         messageReply: messageReply,
-        repliedMessageType: messageReply == null ? MessageEnum.gif : messageReply.messageEnum,
+        repliedMessageType: messageReply == null ? MessageEnum.text : messageReply.messageEnum,
       );
     } catch (e) {
       showSnackBar(context: context, content: e.toString());

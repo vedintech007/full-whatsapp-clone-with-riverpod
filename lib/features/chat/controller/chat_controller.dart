@@ -42,15 +42,19 @@ class ChatController {
     required String recieverUserId,
   }) {
     final messageReply = ref.read(messageReplyProvider);
-    ref.read(userDataAuthProvider).whenData((authData) {
-      chatRepository.sendTextMessage(
-        context: context,
-        text: text,
-        recieverUserId: recieverUserId,
-        senderUser: authData!,
-        messageReply: messageReply,
-      );
-    });
+    ref.read(userDataAuthProvider).whenData(
+      (authData) {
+        chatRepository.sendTextMessage(
+          context: context,
+          text: text,
+          recieverUserId: recieverUserId,
+          senderUser: authData!,
+          messageReply: messageReply,
+        );
+      },
+    );
+
+    ref.read(messageReplyProvider.notifier).update((state) => null);
   }
 
   void sendFileMessage({
@@ -71,6 +75,8 @@ class ChatController {
         messageReply: messageReply,
       );
     });
+
+    ref.read(messageReplyProvider.notifier).update((state) => null);
   }
 
   void sendGIFMessage({
@@ -92,13 +98,7 @@ class ChatController {
             messageReply: messageReply,
           ),
         );
-    // ref.read(userDataAuthProvider).whenData((authData) {
-    //   chatRepository.sendTextMessage(
-    //     context: context,
-    //     text: text,
-    //     recieverUserId: recieverUserId,
-    //     senderUser: authData!,
-    //   );
-    // });
+
+    ref.read(messageReplyProvider.notifier).update((state) => null);
   }
 }

@@ -9,10 +9,14 @@ class DisplayTextImageGif extends StatelessWidget {
     super.key,
     required this.message,
     required this.type,
+    this.fileWidth,
+    this.fileHeight,
   });
 
   final String message;
   final MessageEnum type;
+  final double? fileWidth;
+  final double? fileHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +33,8 @@ class DisplayTextImageGif extends StatelessWidget {
         : type == MessageEnum.image
             ? CachedNetworkImage(
                 imageUrl: message,
+                width: fileWidth,
+                height: fileHeight,
               )
             : type == MessageEnum.audio
                 ? StatefulBuilder(
@@ -55,12 +61,18 @@ class DisplayTextImageGif extends StatelessWidget {
                     },
                   )
                 : type == MessageEnum.video
-                    ? VideoPlayerItem(
-                        videoUrl: message,
+                    ? SizedBox(
+                        width: fileWidth,
+                        height: fileHeight,
+                        child: VideoPlayerItem(
+                          videoUrl: message,
+                        ),
                       )
                     : type == MessageEnum.gif
                         ? CachedNetworkImage(
                             imageUrl: message,
+                            width: fileWidth,
+                            height: fileHeight,
                           )
                         : const Center(
                             child: Text(
