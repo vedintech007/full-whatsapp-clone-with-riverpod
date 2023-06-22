@@ -25,11 +25,9 @@ class ConfirmStatusScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: Container(
-        child: AspectRatio(
-          aspectRatio: 9 / 16,
-          child: Image.file(file),
-        ),
+      body: AspectRatio(
+        aspectRatio: 9 / 16,
+        child: Image.file(file),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => addStatus(ref, context),

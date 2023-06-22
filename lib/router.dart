@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/features/auth/screens/login_screen.dart';
 import 'package:whatsapp_clone/features/auth/screens/otp_screen.dart';
 import 'package:whatsapp_clone/features/auth/screens/user_information_screen.dart';
+import 'package:whatsapp_clone/features/group/screens/create_group_screen.dart';
 import 'package:whatsapp_clone/features/select_contacts/screens/select_contacts_screen.dart';
 import 'package:whatsapp_clone/features/chat/screens/mobile_chat_screen.dart';
 import 'package:whatsapp_clone/features/status/screens/confirm_status.dart';
@@ -33,15 +34,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       ));
     case ConfirmStatusScreen.routeName:
       final file = settings.arguments as File;
-      return _pageRoute(
-        ConfirmStatusScreen(file: file),
-      );
+      return _pageRoute(ConfirmStatusScreen(file: file));
 
     case StatusScreen.routeName:
       final status = settings.arguments as Status;
-      return _pageRoute(
-        StatusScreen(status: status),
-      );
+      return _pageRoute(StatusScreen(status: status));
+
+    case CreateGroupScreen.routeName:
+      return _pageRoute(const CreateGroupScreen());
 
     default:
       return _pageRoute(const ErrorScreen(error: "This page does not exist"));
