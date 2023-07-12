@@ -41,10 +41,15 @@ class ChatController {
     return chatRepository.getChatStream(recieverUserId);
   }
 
+  Stream<List<Message>> groupChatStream(String groupId) {
+    return chatRepository.getGroupChatStream(groupId);
+  }
+
   void sendTextMessage({
     required BuildContext context,
     required String text,
     required String recieverUserId,
+    required bool isGroupChat,
   }) {
     final messageReply = ref.read(messageReplyProvider);
     ref.read(userDataAuthProvider).whenData(
@@ -55,6 +60,7 @@ class ChatController {
           recieverUserId: recieverUserId,
           senderUser: authData!,
           messageReply: messageReply,
+          isGroupChat: isGroupChat,
         );
       },
     );
@@ -67,6 +73,7 @@ class ChatController {
     required File file,
     required String recieverUserId,
     required MessageEnum messageEnum,
+    required bool isGroupChat,
   }) {
     final messageReply = ref.read(messageReplyProvider);
     ref.read(userDataAuthProvider).whenData((authData) {
@@ -78,6 +85,7 @@ class ChatController {
         messageEnum: messageEnum,
         ref: ref,
         messageReply: messageReply,
+        isGroupChat: isGroupChat,
       );
     });
 
@@ -88,6 +96,7 @@ class ChatController {
     required BuildContext context,
     required String gifUrl,
     required String recieverUserId,
+    required bool isGroupChat,
   }) {
     final messageReply = ref.read(messageReplyProvider);
     //https://giphy.com/gifs/party-celebrate-birthday-DFexVkRG7gX9oCy68r
@@ -101,6 +110,7 @@ class ChatController {
             recieverUserId: recieverUserId,
             senderUser: value!,
             messageReply: messageReply,
+            isGroupChat: isGroupChat,
           ),
         );
 

@@ -48,12 +48,14 @@ class SelectContactRepository {
         if (selectPhoneNum == userData.phoneNumber) {
           isFound = true;
           // if (context.mounted) {
+          print(userData.uid);
           Navigator.pushNamed(
             context,
             MobileChatScreen.routeName,
             arguments: {
               "name": userData.name,
               "uid": userData.uid,
+              'isGroupChat': false,
             },
           );
           // }

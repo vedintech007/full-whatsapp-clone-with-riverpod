@@ -15,9 +15,11 @@ class ChatList extends ConsumerStatefulWidget {
   const ChatList({
     super.key,
     required this.recieverUserId,
+    required this.isGroupChat,
   });
 
   final String recieverUserId;
+  final bool isGroupChat;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ChatListState();
@@ -50,7 +52,11 @@ class _ChatListState extends ConsumerState<ChatList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Message>>(
-        stream: ref.read(chatControllerProvider).chatStream(widget.recieverUserId),
+        stream: widget.isGroupChat
+            ? ref.read(chatControllerProvider).groupChatStream(widget.recieverUserId)
+            : ref.read(chatControllerProvider).chatStream(
+                  widget.recieverUserId,
+                ),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Loader();

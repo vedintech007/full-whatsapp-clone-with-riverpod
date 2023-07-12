@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone/colors.dart';
 import 'package:whatsapp_clone/common/constants/constants.dart';
@@ -27,17 +28,22 @@ class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
     setState(() {});
   }
 
-  void createGroup() {
+  void createGroup() async {
     if (groupNameController.text.trim().isNotEmpty && image != null) {
+      final List<Contact> groupMembersContact = ref.read(selectedGroupContact);
+
       ref.read(groupController).createGroup(
             context,
             groupNameController.text.trim(),
             image!,
-            ref.read(selectedGroupContact),
+            groupMembersContact,
           );
 
       ref.read(selectedGroupContact.notifier).update((state) => []);
-      Navigator.pop(context);
+      await Future.delayed(const Duration(seconds: 3));
+      if (context.mounted) {
+        Navigator.pop(context);
+      }
     }
   }
 

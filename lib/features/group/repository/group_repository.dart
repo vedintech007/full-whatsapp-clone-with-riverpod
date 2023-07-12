@@ -43,7 +43,10 @@ class GroupRepository {
             .collection('users')
             .where(
               'phoneNumber',
-              isEqualTo: selectedContacts[i].phones[0].number.replaceAll(' ', ''),
+              isEqualTo: selectedContacts[i].phones[0].number.replaceAll(
+                    ' ',
+                    '',
+                  ),
             )
             .get();
 
